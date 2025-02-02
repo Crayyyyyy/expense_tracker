@@ -53,6 +53,9 @@ class _PageExpensesState extends State<PageExpenses> {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).size.height > MediaQuery.of(context).size.width;
+
     Widget buttonBack = IconButton(
       icon: const Icon(
         Icons.arrow_back,
@@ -89,15 +92,25 @@ class _PageExpensesState extends State<PageExpenses> {
         leading: buttonBack,
         actions: [buttonAdd],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: _expenses),
-          Expanded(
-            child: ListExpenses(
-                list: _expenses, onDismissedExpense: _removeExpense),
-          ),
-        ],
-      ),
+      body: isPortrait
+          ? Column(
+              children: [
+                Chart(expenses: _expenses),
+                Expanded(
+                  child: ListExpenses(
+                      list: _expenses, onDismissedExpense: _removeExpense),
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _expenses)),
+                Expanded(
+                  child: ListExpenses(
+                      list: _expenses, onDismissedExpense: _removeExpense),
+                ),
+              ],
+            ),
     );
   }
 }
