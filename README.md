@@ -1,8 +1,8 @@
 <p align="center">
-    <img src="assets/presentation/image1.png" alt="Image 1" width="200"/>
-    <img src="assets/presentation/image2.png" alt="Image 2" width="200"/>
-    <img src="assets/presentation/image3.png" alt="Image 3" width="200"/>
-    <img src="assets/presentation/image4.png" alt="Image 4" width="200"/>
+    <img src="assets/presentation/screen-listLight.png" alt="Image 3" width="200"/>
+    <img src="assets/presentation/screen-listDark.png" alt="Image 4" width="200"/>
+    <img src="assets/presentation/screen-modalLight.png" alt="Image 2" width="200"/>
+    <img src="assets/presentation/screen-modalDark.png" alt="Image 1" width="200"/>
 </p>
 
 # Expense Tracker
