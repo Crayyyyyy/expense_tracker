@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:expense_tracker/pageExpense/components/expense.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FormExpense extends StatefulWidget {
@@ -61,22 +64,42 @@ class _FormExpenseState extends State<FormExpense> {
     print("----------------------");
 
     if (validExpenseEntered == false) {
-      showDialog(
-          context: context,
-          builder: (ctx) {
-            return AlertDialog(
-              title: const Text("Invalid input"),
-              content: const Text("At least title and amount must be entered."),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: const Text("Okay"),
-                )
-              ],
-            );
-          });
+      if (Platform.isIOS) {
+        showCupertinoDialog(
+            context: context,
+            builder: (ctx) => CupertinoAlertDialog(
+                  title: const Text("Invalid input"),
+                  content:
+                      const Text("At least title and amount must be entered."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      child: const Text("Okay"),
+                    )
+                  ],
+                ));
+      } else if (Platform.isAndroid) {
+        showDialog(
+            context: context,
+            builder: (ctx) {
+              return AlertDialog(
+                title: const Text("Invalid input"),
+                content:
+                    const Text("At least title and amount must be entered."),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: const Text("Okay"),
+                  )
+                ],
+              );
+            });
+      }
+
       return;
     }
 
@@ -184,36 +207,43 @@ class _FormExpenseState extends State<FormExpense> {
       child: const Text("Submit"),
     );
 
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              inputTitle,
-              const SizedBox(width: 20),
-              inputCategory,
-            ],
-          ),
-          Row(
-            children: [
-              inputAmount,
-              inputDate,
-            ],
-          ),
-          const SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    final paddingKeyboard = MediaQuery.of(context).viewInsets.bottom;
+
+    return LayoutBuilder(builder: (ctx, constrains) {
+      return Padding(
+        padding: EdgeInsets.only(
+            top: 20.0, left: 20.0, right: 20.0, bottom: paddingKeyboard + 20),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buttonCancel,
-              buttonSubmit,
+              Row(
+                children: [
+                  inputTitle,
+                  const SizedBox(width: 20),
+                  inputCategory,
+                ],
+              ),
+              Row(
+                children: [
+                  inputAmount,
+                  inputDate,
+                ],
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  buttonCancel,
+                  buttonSubmit,
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }
