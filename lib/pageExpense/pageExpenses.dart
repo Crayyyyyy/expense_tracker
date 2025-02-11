@@ -56,16 +56,6 @@ class _PageExpensesState extends State<PageExpenses> {
     bool isPortrait =
         MediaQuery.of(context).size.height > MediaQuery.of(context).size.width;
 
-    Widget buttonBack = IconButton(
-      icon: const Icon(
-        Icons.arrow_back,
-        color: Color(0xFF8d99ae),
-      ),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-
     Widget buttonAdd = IconButton(
       icon: const Icon(
         Icons.add,
@@ -89,7 +79,6 @@ class _PageExpensesState extends State<PageExpenses> {
     return Scaffold(
       appBar: AppBar(
         title: textTitle,
-        leading: buttonBack,
         actions: [buttonAdd],
       ),
       body: isPortrait

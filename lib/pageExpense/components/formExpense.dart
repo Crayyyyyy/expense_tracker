@@ -23,6 +23,11 @@ class _FormExpenseState extends State<FormExpense> {
   Category? _pickedCategory = Category.other;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _titleController.dispose();
